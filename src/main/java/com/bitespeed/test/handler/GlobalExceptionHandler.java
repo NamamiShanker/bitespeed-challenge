@@ -18,12 +18,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<ValidationException> handleValidationException(ValidationException ve){
         LOGGER.error("Validation Error: ", ve);
+        ve.setStackTrace(null);
         return ResponseEntity.status(ve.getErrorCode()).body(ve);
     }
 
     @ExceptionHandler(BaseException.class)
     public ResponseEntity<BaseException> handleBaseException(BaseException be){
         LOGGER.error("Internal Server Error", be);
+        be.setStackTrace(null);
         return ResponseEntity.status(be.getErrorCode()).body(be);
     }
 
