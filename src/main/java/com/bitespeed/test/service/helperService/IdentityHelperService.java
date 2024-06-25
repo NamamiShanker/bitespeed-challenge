@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bitespeed.test.enums.LinkPrecedence;
 import com.bitespeed.test.model.Contact;
@@ -37,6 +38,7 @@ public class IdentityHelperService {
         return contactRepository.findSecondaryContactsForLinkedId(linkedId);
     }
 
+    @Transactional
     public Contact updateHeirarchyAndGetParent(Contact parent1, Contact parent2){
         LOGGER.info("Update heirarchy of parent contacts:\n {} \n{}", parent1, parent2);
         if(parent1.getCreatedAt().compareTo(parent2.getCreatedAt()) > 0) {
@@ -53,6 +55,7 @@ public class IdentityHelperService {
         return parent1;
     }
 
+    @Transactional
     public Contact insertContactByEmailAndGetParent(String email) {
         LOGGER.info("Inserting contact for Email: {}", email);
         Contact contact = contactRepository.findFirstByEmail(email).orElse(null);
@@ -66,6 +69,7 @@ public class IdentityHelperService {
         return parentContact;
     }
 
+    @Transactional
     public Contact insertContactByPhoneNumberAndGetParent(String phoneNumber) {
         LOGGER.info("Inserting contact for Phone Number: {}", phoneNumber);
         Contact contact = contactRepository.findFirstByPhoneNumber(phoneNumber).orElse(null);
@@ -79,6 +83,7 @@ public class IdentityHelperService {
         return parentContact;
     }
 
+    @Transactional
     public Contact insertFullContactAndGetParent(String email, String phoneNumber) {
         LOGGER.info("Inserting full contact for email: {}, phone number: {}", email, phoneNumber);
         List<Contact> emailContacts = contactRepository.findByEmail(email);
