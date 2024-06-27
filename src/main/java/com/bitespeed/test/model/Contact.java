@@ -11,7 +11,11 @@ import lombok.ToString;
 
 
 @Entity
-@Table(name = "contact")
+@Table(name = "contact",
+       indexes = {
+        @Index(name = "phone_number_idx", columnList = "phone_number"),
+        @Index(name = "email_idx", columnList = "email")
+       })
 @SuppressWarnings("unused")
 @Getter
 @ToString
