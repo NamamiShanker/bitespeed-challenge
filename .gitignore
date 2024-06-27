@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 db.mv.db
+db.trace.db
 *.log
 
 ### STS ###
